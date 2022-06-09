@@ -42,11 +42,11 @@ def add_bool_arg(parser, name, default=False, help=''):  # FIXME move to utils
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Validation')
 parser.add_argument('root', metavar='DIR',
                     help='path to dataset root')
-parser.add_argument('--annotation', type=str, default='T', metavar='N',
+parser.add_argument('--annotation', type=str, default='F', metavar='N',
                     help='If test without annotaion please set "F"')
-parser.add_argument('--annotationW', type=int, default=0, metavar='N',
+parser.add_argument('--annotationW', type=int, default=1716, metavar='N',
                     help='If test without annotaion please set "width"')
-parser.add_argument('--annotationH', type=int, default=0, metavar='N',
+parser.add_argument('--annotationH', type=int, default=942, metavar='N',
                     help='If test without annotaion please set "height"')        
 parser.add_argument('--dataset', default='coco', type=str, metavar='DATASET',
                     help='Name of dataset (default: "coco"')
@@ -95,7 +95,7 @@ parser.add_argument('--native-amp', action='store_true', default=False,
                     help='Use Native Torch AMP mixed precision')
 parser.add_argument('--torchscript', dest='torchscript', action='store_true',
                     help='convert model torchscript for inference')
-parser.add_argument('--results', default='./result.json', type=str, metavar='FILENAME',
+parser.add_argument('--results', default='./result.txt', type=str, metavar='FILENAME',
                     help='JSON filename for evaluation results')
 
 
@@ -188,7 +188,12 @@ def validate(args):
 
     mean_ap = 0.
     evaluator.save(args.results)
-
+    with open(args.results) as f:
+        content = f.read()
+        content = repr(content).replace('\\', '')
+        content = content[1:-1]
+    with open("output.txt","w") as f:
+        f.write(content)
     return mean_ap
 
 
