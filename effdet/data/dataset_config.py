@@ -96,13 +96,13 @@ class Voc0712Cfg(VocCfg):
     variant: str = '0712'
     splits: Dict[str, dict] = field(default_factory=lambda: dict(
         train=dict(
-            split_filename=['trainval.txt'],
-            ann_filename=['train_annotaion_80/%s.xml'],
-            img_dir=['train_img_80']),
+            split_filename=['./data/trainval.txt'],
+            ann_filename=['./data/train/annotation/%s.xml'],
+            img_dir=['./data/train/image']),
         val=dict(
-            split_filename='test.txt',
-            ann_filename='test_annotaion_20/%s.xml',
-            img_dir='test_img_20'),
+            split_filename='./data/test.txt',
+            ann_filename='./data/test/annotation/%s.xml',
+            img_dir='./data/test/image'),
         #test=dict(img_dir='JPEGImages', split_file=None)
     ))
 
