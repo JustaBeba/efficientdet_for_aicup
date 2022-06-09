@@ -190,8 +190,9 @@ def validate(args):
     evaluator.save(args.results)
     with open(args.results) as f:
         content = f.read()
+        content = content.replace(']]]', ']]')
         content = repr(content).replace('\\', '')
-        content = content[1:-1]
+        content = content[2:-2]
     with open("output.txt","w") as f:
         f.write(content)
     return mean_ap
