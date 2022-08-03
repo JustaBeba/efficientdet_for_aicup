@@ -240,7 +240,7 @@ def main():
 
     args.pretrained_backbone = not args.no_pretrained_backbone
     args.prefetcher = not args.no_prefetcher
-    args.distributed = True
+    args.distributed = False
     if 'WORLD_SIZE' in os.environ:
         args.distributed = int(os.environ['WORLD_SIZE']) > 1
     args.device = 'cuda:0'
@@ -300,7 +300,7 @@ def main():
             checkpoint_path=args.initial_checkpoint,
         )
     model_config = model.config  # grab before we obscure with DP/DDP wrappers
-
+    print(model)
     if args.local_rank == 0:
         logging.info('Model %s created, param count: %d' % (args.model, sum([m.numel() for m in model.parameters()])))
 
